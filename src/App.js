@@ -1,25 +1,39 @@
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react'
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Map, Marker, GoogleApiWrapper } from 'google-maps-react'
+import _api from './api/_api'
+// import MarkerClusterer from '@googlemaps/markerclustererplus';
 
-class App extends Component {
-  render() {
-    return(
-      <div className="App">
-        <Map google={this.props.google} zoom={14}>
-          <Marker onClick={this.onMarkerClick}
-                  name={`Current location`} />
-          
-          <InfoWindow onClose={this.onInfoWindowClose}>
-            {/* <div>
-              <h1>{this.state.selectedPlace.name}</h1>
-            </div> */}
-          </InfoWindow>
-        </Map>
-      </div>
-    )
-  }
+function App(props) {
+  const [regions, setRegions] = useState([])
+
+  useEffect(() => {
+    _api.get('').then((res) => {
+      setRegions(res.data.regions)
+    })
+  })
+
+  return (
+    <div className="App">
+      <Map google={props.google} zoom={4} centerAroundCurrentLocation={true}>
+
+          {
+            regions.map((point, i) => {
+              return (
+                <Marker
+                  key={point.name} 
+                  title={point.name} 
+                  position={{lat: point.latitude, lng:point.longitude}}
+                >
+                </Marker>
+              )
+            })
+          }
+
+      </Map>
+    </div>
+  )
 }
 
 export default GoogleApiWrapper({
-  apiKey: ("AIzaSyCXDfxEVTx9uiaCgGfber6z7r_uw41OvlM")
+  apiKey: ("AIzaSyCXDfxEVTx9uiaCgGfber6z7r_uw41OvlM"),
 })(App)
