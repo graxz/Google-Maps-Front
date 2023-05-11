@@ -1,6 +1,6 @@
 import axios from 'axios'
 
 export default axios.create({
-  baseURL: 'https://testenodejspleno.herokuapp.com',
+  baseURL: 'https://gmaps-api.onrender.com',
   timeout: 30000
 })
