@@ -22,7 +22,7 @@ Tecnologias usadas:
 
 ## Heroku
 
-https://googlemaps-app.herokuapp.com/
+https://google-maps.onrender.com
 
 ### Instalação
 
